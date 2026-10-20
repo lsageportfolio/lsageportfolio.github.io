@@ -1,0 +1,84 @@
+---
+title: "Lab-2: Summary measures"
+
+output: 
+    word_document: default
+---
+# Make sure the data file "Tech-Sales-Reps.csv" and the R codes "Lab-2 R Codes.Rmd" are stored in the same folder.
+
+# Step 1: Import the dataset "Tech-Sales-Reps.csv" to RStudio
+
+```{r}
+
+rm(list = ls())   # clean the working environment
+
+# Import the data set into RStudio (data frame).
+mydata <- read.csv("Tech_Sales_Reps.csv")
+
+# Produce the summary measures to get a picture of the data set.
+summary(mydata) 
+
+```
+
+# Step 2: Calculate some basic descriptive statistics for variable NPS (net promoter score).  
+# Note: We reference the variable:  "Dataframe$Variable"
+
+```{r}
+
+meanNPS <- mean (mydata$NPS) # Calculate the mean of NPS.
+meanNPS
+
+medianNPS <-median (mydata$NPS) # Calculate the median of NPS.
+medianNPS
+
+varianceNPS <-var (mydata$NPS) # Calculate the variance of NPS.
+varianceNPS
+
+StdDevNPS <-sd (mydata$NPS) # Calculate the standard deviation of NPS.
+StdDevNPS
+
+iqrNPS <- IQR (mydata$NPS) # Calculate the Inter-Quartile Range of NPS.
+iqrNPS
+
+```
+
+# Step 3: Create a simple boxplot and histogram of variable NPS.
+
+```{r}
+boxplot(mydata$NPS)
+
+```
+
+# Now, make the boxplot nicer by adding labels to the boxplot, making it "horizontal" and  coloring the box "gold".  
+
+```{r}
+
+boxplot (mydata$NPS, main = "Tech Sales Reps: Net Promoter Score", xlab = "NPS Score", horizontal = TRUE, col = "gold")
+
+```
+
+# Step 4: Use the  tapply() function to tabulate/calculate the average NPS score for four different types of Personality.
+
+```{r}
+
+tapply (mydata$NPS, mydata$Personality, mean)
+
+```
+
+# Conclusion: The sales representatives with the personalities of Diplomat and Explorer have higher customer satisfaction and loyalty (as reflected by the NPS scores).
+
+# Step 5: You can also do the cross tabulation (two-way table) for the average NPS score using: four "Personality" types and "Business" (Hardware or Software).
+
+
+```{r}
+
+print ("Cross-tabulation for average NPS scores")
+
+tapply (mydata$NPS , list(mydata$Personality, mydata$Business) , mean)
+
+```
+
+# Finally, click "Knit" > "Knit to Word" to produce the Word file of your .Rmd file (codes) with output.
+
+
+
